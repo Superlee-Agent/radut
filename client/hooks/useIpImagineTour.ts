@@ -4,7 +4,9 @@ export type TourStep = null | "upload" | "input" | "submit";
 
 export function useIpImagineTour() {
   const [tourStep, setTourStep] = useState<TourStep>(null);
-  const [targetElementRect, setTargetElementRect] = useState<DOMRect | null>(null);
+  const [targetElementRect, setTargetElementRect] = useState<DOMRect | null>(
+    null,
+  );
   const tourShownRef = useRef(false);
 
   const updateElementRect = useCallback((element: HTMLElement | null) => {
