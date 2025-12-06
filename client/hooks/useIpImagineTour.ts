@@ -91,6 +91,33 @@ export function useIpImagineTour() {
     setTourStep(null);
   }, []);
 
+  // Handle window resize to update element positions
+  useEffect(() => {
+    if (tourStep === null) return;
+
+    const handleResize = () => {
+      if (tourStep === "upload") {
+        const uploadButton = document.querySelector(
+          "[data-tour-upload]",
+        ) as HTMLElement;
+        updateElementRect(uploadButton, setUploadButtonRect);
+      } else if (tourStep === "input") {
+        const input = document.querySelector(
+          "[data-chat-input]",
+        ) as HTMLElement;
+        updateElementRect(input, setInputRect);
+      } else if (tourStep === "submit") {
+        const submitButton = document.querySelector(
+          "[data-tour-submit]",
+        ) as HTMLElement;
+        updateElementRect(submitButton, setSubmitButtonRect);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [tourStep, updateElementRect]);
+
   return {
     tourStep,
     uploadButtonRect,
