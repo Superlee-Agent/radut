@@ -110,10 +110,7 @@ export function IpImagineTour({
           <motion.div
             className="fixed z-50 bg-slate-900/95 border border-[#FF4DA6]/50 rounded-xl p-4 shadow-2xl max-w-sm"
             style={{
-              top: Math.max(
-                16,
-                targetRect.top - 200,
-              ),
+              top: Math.max(16, targetRect.top - 200),
               left: Math.max(
                 16,
                 Math.min(
@@ -132,9 +129,7 @@ export function IpImagineTour({
                 <h3 className="font-semibold text-[#FF4DA6] text-sm mb-1">
                   {content.title}
                 </h3>
-                <p className="text-sm text-slate-200">
-                  {content.description}
-                </p>
+                <p className="text-sm text-slate-200">{content.description}</p>
               </div>
               <button
                 onClick={onSkip}

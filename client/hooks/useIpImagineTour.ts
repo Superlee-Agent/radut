@@ -21,7 +21,10 @@ export function useIpImagineTour() {
   const tourShownRef = useRef(false);
 
   const updateElementRect = useCallback(
-    (element: HTMLElement | null, setter: (rect: ElementRect | null) => void) => {
+    (
+      element: HTMLElement | null,
+      setter: (rect: ElementRect | null) => void,
+    ) => {
       if (!element) {
         setter(null);
         return;
