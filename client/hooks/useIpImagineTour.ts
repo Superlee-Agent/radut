@@ -54,23 +54,32 @@ export function useIpImagineTour() {
 
   const nextStep = useCallback(() => {
     setTourStep((current) => {
+      let nextStep: TourStep = current;
+
       if (current === "upload") {
-        // Track input element
-        const input = document.querySelector(
-          "[data-chat-input]",
-        ) as HTMLElement;
-        updateElementRect(input, setInputRect);
-        return "input";
+        nextStep = "input";
+      } else if (current === "input") {
+        nextStep = "submit";
       }
-      if (current === "input") {
-        // Track submit button
-        const submitButton = document.querySelector(
-          "[data-tour-submit]",
-        ) as HTMLElement;
-        updateElementRect(submitButton, setSubmitButtonRect);
-        return "submit";
+
+      // Schedule update of next element's rect for next render
+      if (nextStep !== current && nextStep !== null) {
+        setTimeout(() => {
+          if (nextStep === "input") {
+            const input = document.querySelector(
+              "[data-chat-input]",
+            ) as HTMLElement;
+            updateElementRect(input, setInputRect);
+          } else if (nextStep === "submit") {
+            const submitButton = document.querySelector(
+              "[data-tour-submit]",
+            ) as HTMLElement;
+            updateElementRect(submitButton, setSubmitButtonRect);
+          }
+        }, 100);
       }
-      return current;
+
+      return nextStep;
     });
   }, [updateElementRect]);
 
