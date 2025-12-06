@@ -35,9 +35,7 @@ const IpImagine = () => {
   const { wallets } = useWallets();
   const {
     tourStep,
-    uploadButtonRect,
-    inputRect,
-    submitButtonRect,
+    targetElementRect,
     startTour,
     nextStep,
     skipTour,
