@@ -48,11 +48,10 @@ export function IpImagineTour({
         >
           {/* Backdrop overlay */}
           <motion.div
-            className="absolute inset-0 bg-black/40"
+            className="absolute inset-0 bg-black/40 pointer-events-auto cursor-pointer"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             onClick={onSkip}
-            className="absolute inset-0 bg-black/40 pointer-events-auto cursor-pointer"
           />
 
           {/* Highlight ring around target element */}
