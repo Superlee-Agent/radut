@@ -759,9 +759,7 @@ const IpImagine = () => {
 
       <IpImagineTour
         tourStep={tourStep}
-        uploadButtonRect={uploadButtonRect}
-        inputRect={inputRect}
-        submitButtonRect={submitButtonRect}
+        targetElementRect={targetElementRect}
         onNext={nextStep}
         onSkip={skipTour}
       />
