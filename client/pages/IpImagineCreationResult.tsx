@@ -17,8 +17,32 @@ import { generateDemoImage } from "@/lib/utils/generate-demo-image";
 const IpImagineCreationResult = () => {
   const navigate = useNavigate();
   const context = useContext(CreationContext);
-  const { authenticated } = usePrivy();
+  const { authenticated, ready, login, logout, user } = usePrivy();
   const { wallets } = useWallets();
+
+  // Get primary wallet address using same pattern as MyPortfolio
+  const primaryWalletAddress = useMemo(() => {
+    if (wallets && wallets.length > 0) {
+      const walletWithAddress = wallets.find((w) => w.address);
+      if (walletWithAddress?.address) {
+        return walletWithAddress.address;
+      }
+    }
+    return user?.wallet?.address ?? null;
+  }, [wallets, user?.wallet?.address]);
+
+  // Handle wallet connection
+  const handleWalletConnect = useCallback(() => {
+    if (!ready) return;
+    if (!authenticated) {
+      void login({ loginMethods: ["wallet"] });
+    }
+  }, [ready, authenticated, login]);
+
+  // Handle wallet disconnection
+  const handleWalletDisconnect = useCallback(async () => {
+    await logout();
+  }, [logout]);
 
   if (!context) {
     return (
