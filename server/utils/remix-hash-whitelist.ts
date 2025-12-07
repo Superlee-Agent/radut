@@ -66,7 +66,9 @@ async function loadWhitelist(): Promise<RemixHashWhitelist> {
     const response = await fetch(blobUrl);
 
     if (!response.ok) {
-      console.warn(`[Remix Hash Blob] Failed to fetch blob: ${response.status}`);
+      console.warn(
+        `[Remix Hash Blob] Failed to fetch blob: ${response.status}`,
+      );
       return { entries: [], lastUpdated: Date.now() };
     }
 
@@ -130,8 +132,9 @@ async function saveWhitelist(whitelist: RemixHashWhitelist): Promise<void> {
     if (isSuspended) {
       console.error(
         "[Remix Hash Blob] ⚠️ Vercel Blob store is suspended. " +
-        "Check your Vercel dashboard to re-enable the Blob storage. " +
-        "Error: " + errorMessage
+          "Check your Vercel dashboard to re-enable the Blob storage. " +
+          "Error: " +
+          errorMessage,
       );
     } else {
       console.error("[Remix Hash Blob] Failed to save whitelist:", error);
