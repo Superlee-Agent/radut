@@ -92,8 +92,8 @@ const IpImagine = () => {
         return walletWithAddress.address;
       }
     }
-    return null;
-  }, [wallets]);
+    return user?.wallet?.address ?? null;
+  }, [wallets, user?.wallet?.address]);
 
   // Wallet connection handlers
   const handleWalletButtonClick = useCallback(() => {
