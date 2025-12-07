@@ -483,9 +483,10 @@ const IpImagine = () => {
     <ChatHeaderActions
       guestMode={guestMode}
       onToggleGuest={handleToggleGuest}
-      walletButtonText="Connect"
-      walletButtonDisabled={true}
-      onWalletClick={() => {}}
+      walletButtonText={walletButtonText}
+      walletButtonDisabled={walletButtonDisabled}
+      onWalletClick={handleWalletButtonClick}
+      connectedAddressLabel={connectedAddressLabel}
       showGuest={true}
     />
   );
