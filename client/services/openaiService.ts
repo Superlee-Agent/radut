@@ -67,15 +67,21 @@ export const generateImageFromTextWithWatermark = async (
     });
 
     if (!response.ok) {
+      let errorMessage = `Image generation failed with status ${response.status}`;
       try {
-        const errorData = await response.json();
-        throw new Error(errorData.error || "Image generation failed");
+        const clonedResponse = response.clone();
+        const contentType = clonedResponse.headers.get("content-type");
+        if (contentType && contentType.includes("application/json")) {
+          const errorData = await clonedResponse.json();
+          errorMessage = errorData.error || errorMessage;
+        } else {
+          const text = await clonedResponse.text();
+          errorMessage = text || errorMessage;
+        }
       } catch (parseError) {
-        const text = await response.text();
-        throw new Error(
-          text || `Image generation failed with status ${response.status}`,
-        );
+        console.error("Failed to parse error response:", parseError);
       }
+      throw new Error(errorMessage);
     }
 
     const data = await response.json();
