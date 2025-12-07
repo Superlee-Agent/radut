@@ -83,6 +83,40 @@ const IpImagine = () => {
   const uploadRef = useRef<HTMLInputElement | null>(null);
   const inputRef = useRef<HTMLTextAreaElement | HTMLInputElement | null>(null);
 
+  // Get primary wallet address
+  const primaryWalletAddress = useMemo(() => {
+    if (wallets && wallets.length > 0) {
+      const walletWithAddress = wallets.find((wallet) => wallet.address);
+      if (walletWithAddress?.address) {
+        return walletWithAddress.address;
+      }
+    }
+    return null;
+  }, [wallets]);
+
+  // Wallet connection handlers
+  const handleWalletButtonClick = useCallback(() => {
+    if (!ready) return;
+    if (authenticated) {
+      logout();
+    } else {
+      void login({ loginMethods: ["wallet"] });
+    }
+  }, [ready, authenticated, login, logout]);
+
+  const walletButtonText = authenticated
+    ? "Disconnect"
+    : ready
+      ? "Connect Wallet"
+      : "Loading Wallet";
+
+  const walletButtonDisabled = !ready && !authenticated;
+
+  const connectedAddressLabel =
+    authenticated && primaryWalletAddress
+      ? truncateAddress(primaryWalletAddress)
+      : null;
+
   // Auto-start tour if coming from welcome screen
   useEffect(() => {
     const shouldStartTour = sessionStorage.getItem("start-ip-imagine-tour");
