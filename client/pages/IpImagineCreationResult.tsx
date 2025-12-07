@@ -1,4 +1,4 @@
-import { useState, useContext, useRef, useEffect } from "react";
+import { useState, useContext, useRef, useEffect, useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
@@ -9,6 +9,7 @@ import ResultUpscaleModal from "@/components/ip/imagine/results/ResultUpscaleMod
 import IpImagineInput from "@/components/ip/imagine/Input";
 import ChatHeaderActions from "@/components/ip/assistant/ChatHeaderActions";
 import SidebarExtras from "@/components/ip/assistant/SidebarExtras";
+import { ConnectWalletView } from "@/components/portfolio";
 import { CreationContext, Creation } from "@/context/CreationContext";
 import * as openaiService from "@/services/openaiService";
 import { generateDemoImage } from "@/lib/utils/generate-demo-image";
