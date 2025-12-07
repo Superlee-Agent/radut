@@ -124,7 +124,18 @@ async function saveWhitelist(whitelist: RemixHashWhitelist): Promise<void> {
 
     console.log("[Remix Hash Blob] Whitelist saved");
   } catch (error) {
-    console.error("[Remix Hash Blob] Failed to save whitelist:", error);
+    const errorMessage = error instanceof Error ? error.message : String(error);
+    const isSuspended = errorMessage.includes("suspended");
+
+    if (isSuspended) {
+      console.error(
+        "[Remix Hash Blob] ⚠️ Vercel Blob store is suspended. " +
+        "Check your Vercel dashboard to re-enable the Blob storage. " +
+        "Error: " + errorMessage
+      );
+    } else {
+      console.error("[Remix Hash Blob] Failed to save whitelist:", error);
+    }
     throw error;
   }
 }
