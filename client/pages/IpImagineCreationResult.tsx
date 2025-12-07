@@ -221,6 +221,10 @@ const IpImagineCreationResult = () => {
   };
 
   const handleToggleGuest = () => {
+    if (!guestMode && authenticated) {
+      // If toggling to guest mode from authenticated, disconnect wallet
+      handleWalletDisconnect();
+    }
     setGuestMode(!guestMode);
   };
 
@@ -228,9 +232,9 @@ const IpImagineCreationResult = () => {
     <ChatHeaderActions
       guestMode={guestMode}
       onToggleGuest={handleToggleGuest}
-      walletButtonText="Connect"
-      walletButtonDisabled={true}
-      onWalletClick={() => {}}
+      walletButtonText={authenticated && primaryWalletAddress ? "Disconnect" : "Connect"}
+      walletButtonDisabled={false}
+      onWalletClick={authenticated && primaryWalletAddress ? handleWalletDisconnect : handleWalletConnect}
       showGuest={true}
     />
   );
