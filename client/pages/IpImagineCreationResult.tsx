@@ -1,4 +1,11 @@
-import { useState, useContext, useRef, useEffect, useCallback, useMemo } from "react";
+import {
+  useState,
+  useContext,
+  useRef,
+  useEffect,
+  useCallback,
+  useMemo,
+} from "react";
 import { useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { usePrivy, useWallets } from "@privy-io/react-auth";
@@ -232,9 +239,15 @@ const IpImagineCreationResult = () => {
     <ChatHeaderActions
       guestMode={guestMode}
       onToggleGuest={handleToggleGuest}
-      walletButtonText={authenticated && primaryWalletAddress ? "Disconnect" : "Connect"}
+      walletButtonText={
+        authenticated && primaryWalletAddress ? "Disconnect" : "Connect"
+      }
       walletButtonDisabled={false}
-      onWalletClick={authenticated && primaryWalletAddress ? handleWalletDisconnect : handleWalletConnect}
+      onWalletClick={
+        authenticated && primaryWalletAddress
+          ? handleWalletDisconnect
+          : handleWalletConnect
+      }
       showGuest={true}
     />
   );
