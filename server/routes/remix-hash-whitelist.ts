@@ -261,10 +261,17 @@ export const handleAddRemixHash: RequestHandler = async (
       detailsFetched: !!fullAssetDetails,
     });
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    const isSuspended = errorMessage.includes("suspended");
+
     console.error("Error adding hash to whitelist:", error);
+
     res.status(500).json({
       error: "Failed to add hash to whitelist",
-      details: error instanceof Error ? error.message : "Unknown error",
+      details: isSuspended
+        ? "Vercel Blob storage is suspended. Please check your Vercel dashboard to re-enable Blob storage."
+        : errorMessage,
+      hint: isSuspended ? "Go to https://vercel.com to manage your Blob storage." : undefined,
     });
   }
 };
