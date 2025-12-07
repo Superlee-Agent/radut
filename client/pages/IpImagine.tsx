@@ -33,7 +33,7 @@ const IpImagine = () => {
   const context = useContext(CreationContext);
   const creations = context?.creations || [];
   const guestMode = context?.guestMode || false;
-  const { ready, authenticated, login, logout } = usePrivy();
+  const { ready, authenticated, login, logout, user } = usePrivy();
   const { wallets } = useWallets();
   const {
     tourStep,
