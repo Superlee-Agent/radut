@@ -21,6 +21,7 @@ import {
 import useGeminiGenerator from "@/hooks/useGeminiGenerator";
 import { useIpImagineTour } from "@/hooks/useIpImagineTour";
 import { getCurrentTimestamp } from "@/lib/ip-assistant/utils";
+import { truncateAddress } from "@/lib/ip-assistant/utils";
 import { calculateBlobHash } from "@/lib/utils/hash";
 import { calculatePerceptualHash } from "@/lib/utils/perceptual-hash";
 import { getImageVisionDescription } from "@/lib/utils/vision-api";
@@ -31,7 +32,7 @@ const IpImagine = () => {
   const context = useContext(CreationContext);
   const creations = context?.creations || [];
   const guestMode = context?.guestMode || false;
-  const { authenticated } = usePrivy();
+  const { ready, authenticated, login, logout } = usePrivy();
   const { wallets } = useWallets();
   const {
     tourStep,
